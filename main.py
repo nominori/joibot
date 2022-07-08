@@ -2,7 +2,7 @@ from aiogram import Bot, Dispatcher, executor, types
 from pycoingecko import CoinGeckoAPI
 import Buttons as Bt
 
-TOKEN = '5411978490:AAHvfG3cc1yKlXMfQ-yORg1C0J73fteINqI'
+TOKEN = '5163786627:AAH-gqFsDibFC1TeMv-XXbiCz76CujU7iZE'
 bot = Bot(token=TOKEN)
 dp = Dispatcher(bot)
 cg = CoinGeckoAPI()
