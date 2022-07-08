@@ -2,21 +2,26 @@ from aiogram import Bot, Dispatcher, executor, types
 from pycoingecko import CoinGeckoAPI
 import Buttons as Bt
 
-TOKEN = '5163786627:AAH-gqFsDibFC1TeMv-XXbiCz76CujU7iZE'
+TOKEN = '5411978490:AAHvfG3cc1yKlXMfQ-yORg1C0J73fteINqI'
 bot = Bot(token=TOKEN)
 dp = Dispatcher(bot)
 cg = CoinGeckoAPI()
-check, lang = '', ''
+check, lang, check2 = '', '', ''
 
 
 @dp.message_handler(commands=['start'])
 async def start(message: types.Message):
+    global check, check2
+    check, check2 = '', ''
     await bot.send_message(message.chat.id, 'Hi, I am JoiCryptoBot, I can show cryptocurrency exchange rate\n'
-                                            'To know my commands and start using me, tap /commands')
+                                            'To know my commands and start using me, tap /commands',
+                                            reply_markup=Bt.ReplyKeyboardRemove())
 
 
 @dp.message_handler(commands=['commands'])
 async def start_command(message: types.Message):
+    global check, check2
+    check, check2 = '', ''
     if lang == 'ukr':
         await bot.send_message(message.chat.id, '<b>Команди</b>\n /commands - Усі команди\n '
                                                 '/language - Обрати мову\n '
@@ -36,8 +41,8 @@ async def start_command(message: types.Message):
 
 @dp.message_handler(commands='list')
 async def setlist(message: types.Message):
-    global check
-    check = ''
+    global check, check2
+    check, check2 = '', ''
     await bot.send_message(message.chat.id, '✨', reply_markup=Bt.ReplyKeyboardRemove())
     if lang == 'ukr':
         await bot.send_message(message.chat.id, 'Виберіть криптовалюту', reply_markup=Bt.ListMenu)
@@ -86,40 +91,44 @@ async def crypt(call: types.CallbackQuery):
 
 @dp.callback_query_handler(text="back")
 async def back(call: types.CallbackQuery):
-    await bot.delete_message(call.from_user.id, call.message.message_id-1)
-    await bot.delete_message(call.from_user.id, call.message.message_id)
+    for i in range(3):
+        await bot.delete_message(call.from_user.id, call.message.message_id-i)
 
 
 @dp.message_handler(commands='language')
 async def language(message: types.Message):
+    global check, check2
     await bot.delete_message(message.from_user.id, message.message_id)
-    if lang == 'ukr':
-        await bot.send_message(message.chat.id, 'Оберіть мову', reply_markup=Bt.LanguageMenu)
-    elif lang == 'ru':
-        await bot.send_message(message.chat.id, 'Выберите язык', reply_markup=Bt.LanguageMenu)
+    if check2 == '':
+        if lang == 'ukr':
+            await bot.send_message(message.chat.id, 'Оберіть мову', reply_markup=Bt.LanguageMenu)
+        elif lang == 'ru':
+            await bot.send_message(message.chat.id, 'Выберите язык', reply_markup=Bt.LanguageMenu)
+        else:
+            await bot.send_message(message.chat.id, 'Choice language', reply_markup=Bt.LanguageMenu)
+        check = 'language'
+        check2 = 'language'
     else:
-        await bot.send_message(message.chat.id, 'Choice language', reply_markup=Bt.LanguageMenu)
-    global check
-    check = 'language'
+        pass
 
 
 @dp.message_handler()
 async def answer(message: types.Message):
-    global check, lang
+    global check, lang, check2
     if check == 'language':
         if message.text == 'Українська🇺🇦':
             await bot.send_message(message.chat.id, 'Мова обрана🇺🇦', reply_markup=Bt.ReplyKeyboardRemove())
-            lang, check = 'ukr', ''
+            lang, check, check2 = 'ukr', '', ''
         elif message.text == 'Русский🇷🇺':
             await bot.send_message(message.chat.id, 'Язык выбран🇷🇺', reply_markup=Bt.ReplyKeyboardRemove())
-            lang, check = 'ru', ''
+            lang, check, check2 = 'ru', '', ''
         elif message.text == 'English🇬🇧':
             await bot.send_message(message.chat.id, 'Language selected🇬🇧', reply_markup=Bt.ReplyKeyboardRemove())
-            lang, check = 'eng', ''
+            lang, check, check2 = 'eng', '', ''
         elif message.text == '⬅️':
             await bot.delete_message(message.from_user.id, message.message_id)
             await bot.delete_message(message.from_user.id, message.message_id-1)
-            check = ''
+            check, check2 = '', ''
             return
         else:
             await language(message)
