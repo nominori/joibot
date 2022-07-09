@@ -1,6 +1,5 @@
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, ReplyKeyboardMarkup, \
                           KeyboardButton, ReplyKeyboardRemove
-
 LanguageButton1 = KeyboardButton('Українська🇺🇦')
 LanguageButton2 = KeyboardButton('Русский🇷🇺')
 LanguageButton3 = KeyboardButton('English🇬🇧')
@@ -19,7 +18,14 @@ Button9 = InlineKeyboardButton(text="DOT", callback_data='cc_polkadot')
 Button10 = InlineKeyboardButton(text="TRX", callback_data='cc_tron')
 Button11 = InlineKeyboardButton(text="LINK", callback_data='cc_chainlink')
 Button12 = InlineKeyboardButton(text="NEAR", callback_data='cc_near')
+Button13 = InlineKeyboardButton(text="MATIC", callback_data='cc_matic-network')
+Button14 = InlineKeyboardButton(text="AVAX", callback_data='cc_avalanche-2')
+Button15 = InlineKeyboardButton(text="SHIBA", callback_data='cc_shiba-inu')
 ButtonBack = InlineKeyboardButton(text="⬅️", callback_data='back')
+ButtonAll = InlineKeyboardButton(text="ALL➕", callback_data='cc_all')
+ButtonRemoveAll = InlineKeyboardButton(text="ALL➖", callback_data='cc_remove')
+ButtonSend = InlineKeyboardButton(text="📈", callback_data='back_send')
 ListMenu = InlineKeyboardMarkup(row_width=5).add(Button1, Button2, Button3, Button4, Button5,
                                                  Button6, Button7, Button8, Button9, Button10,
-                                                 Button11, Button12, ButtonBack)
+                                                 Button11, Button12, Button13, Button14, Button15,
+                                                 ButtonBack, ButtonAll, ButtonRemoveAll, ButtonSend)
