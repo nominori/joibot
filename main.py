@@ -1,9 +1,9 @@
 from aiogram import Bot, Dispatcher, executor, types
 from pycoingecko import CoinGeckoAPI
 import Buttons as Bt
+import config as info
 
-TOKEN = '5163786627:AAH-gqFsDibFC1TeMv-XXbiCz76CujU7iZE'
-bot = Bot(token=TOKEN)
+bot = Bot(token=info.TOKEN)
 dp = Dispatcher(bot)
 cg = CoinGeckoAPI()
 check, lang, check2 = '', '', ''
@@ -81,12 +81,6 @@ async def crypt(call: types.CallbackQuery):
         await bot.send_message(call.from_user.id, f'LINK - {price} USD')
     elif call.data == 'cc_near':
         await bot.send_message(call.from_user.id, f'NEAR - {price} USD')
-    """elif call.data == 'cc_shibainu':
-        await bot.send_message(call.from_user.id, f'SHIB - {price} USD')
-    elif call.data == 'cc_avalanche':
-        await bot.send_message(call.from_user.id, f'AVAX - {price} USD')
-    elif call.data == 'cc_polygon':
-        await bot.send_message(call.from_user.id, f'MATIC - {price} USD')"""
 
 
 @dp.callback_query_handler(text="back")
