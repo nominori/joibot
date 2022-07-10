@@ -20,7 +20,7 @@ Button11 = InlineKeyboardButton(text="LINK", callback_data='cc_chainlink')
 Button12 = InlineKeyboardButton(text="NEAR", callback_data='cc_near')
 Button13 = InlineKeyboardButton(text="MATIC", callback_data='cc_matic-network')
 Button14 = InlineKeyboardButton(text="AVAX", callback_data='cc_avalanche-2')
-Button15 = InlineKeyboardButton(text="SHIBA", callback_data='cc_shiba-inu')
+Button15 = InlineKeyboardButton(text="ATOM", callback_data='cc_cosmos')
 ButtonBack = InlineKeyboardButton(text="⬅️", callback_data='back')
 ButtonSend = InlineKeyboardButton(text="📈", callback_data='back_send')
 ListMenu = InlineKeyboardMarkup(row_width=5).add(Button1, Button2, Button3, Button4, Button5,
