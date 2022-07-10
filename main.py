@@ -3,9 +3,9 @@ from pycoingecko import CoinGeckoAPI
 import datetime
 from time import sleep
 import Buttons as Bt
-import config as info
+from maintoken import TOKEN
 
-bot = Bot(token=info.TOKEN)
+bot = Bot(token=TOKEN)
 dp = Dispatcher(bot)
 cg = CoinGeckoAPI()
 check, check2, lang, k = '', '', '', 0
