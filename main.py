@@ -1,6 +1,5 @@
 from aiogram import Bot, Dispatcher, executor, types
 from pycoingecko import CoinGeckoAPI
-import datetime
 from time import sleep
 import Buttons as Bt
 from maintoken import TOKEN
