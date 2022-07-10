@@ -127,13 +127,13 @@ async def crypt(call: types.CallbackQuery):
                     cc_list.append(name)
                     cc_list1.append(price)
                     Bt.ListMenu["inline_keyboard"][i][j]['text'] = f"{name}✅"
-        await bot.send_message(call.from_user.id, '✨', reply_markup=Bt.ReplyKeyboardRemove())
-        if lang == 'ukr':
-            await bot.send_message(call.from_user.id, 'Виберіть криптовалюту', reply_markup=Bt.ListMenu)
-        elif lang == 'ru':
-            await bot.send_message(call.from_user.id, 'Выберите криптовалюту', reply_markup=Bt.ListMenu)
-        else:
-            await bot.send_message(call.from_user.id, 'Choice cryptocurrency', reply_markup=Bt.ListMenu)
+    await bot.send_message(call.from_user.id, '✨', reply_markup=Bt.ReplyKeyboardRemove())
+    if lang == 'ukr':
+        await bot.send_message(call.from_user.id, 'Виберіть криптовалюту', reply_markup=Bt.ListMenu)
+    elif lang == 'ru':
+        await bot.send_message(call.from_user.id, 'Выберите криптовалюту', reply_markup=Bt.ListMenu)
+    else:
+        await bot.send_message(call.from_user.id, 'Choice cryptocurrency', reply_markup=Bt.ListMenu)
 
 
 @dp.callback_query_handler(text_contains="back")
