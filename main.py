@@ -158,7 +158,6 @@ async def crypt(call: types.CallbackQuery):
         cc_list, cc_list1 = [], []
 
 
-
 @dp.message_handler()
 async def answer(message: types.Message):
     global check, lang, check2
