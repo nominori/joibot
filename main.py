@@ -111,8 +111,8 @@ async def crypt(call: types.CallbackQuery):
     global k, cc_list, cc_list1
     currency = str(call.data[3:])
     price = cg.get_price(ids=currency, vs_currencies='usd')[currency]['usd']
-    for i in range(3):
-            await bot.delete_message(call.from_user.id, call.message.message_id-i)
+    await bot.delete_message(call.from_user.id, call.message.message_id)
+    await bot.delete_message(call.from_user.id, call.message.message_id-1)
     for i in range(3):
         for j in range(5):
             name = Bt.ListMenu["inline_keyboard"][i][j]['text']
@@ -140,10 +140,10 @@ async def crypt(call: types.CallbackQuery):
 async def crypt(call: types.CallbackQuery):
     global k, cc_list, cc_list1
     if call.data == 'back':
-        for i in range(3):
+        for i in range(2):
             await bot.delete_message(call.from_user.id, call.message.message_id-i)
     elif call.data == 'back_send' and cc_list != []:
-        for i in range(3):
+        for i in range(2):
             await bot.delete_message(call.from_user.id, call.message.message_id-i)
         short = ''
         for o in range(k):
