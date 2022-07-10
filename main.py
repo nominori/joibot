@@ -1,6 +1,5 @@
 from aiogram import Bot, Dispatcher, executor, types
 from pycoingecko import CoinGeckoAPI
-from time import sleep
 import Buttons as Bt
 from maintoken import TOKEN
 
@@ -30,8 +29,6 @@ async def about(message: types.Message):
                                                 '1 клік - Вибрати\n'
                                                 '2 клік - Видалити\n'
                                                 '⬅️ - Повернутись назад\n'
-                                                'ALL➕ - Обрати все\n'
-                                                'ALL➖ - Очистити список\n'
                                                 '📈 - Вивести курс\n'
                                                 '/commands - Усі команди\n',
                                                 reply_markup=Bt.ReplyKeyboardRemove())
@@ -41,8 +38,6 @@ async def about(message: types.Message):
                                                 '1 клик – Выбрать\n'
                                                 '2 клик - Удалить\n'
                                                 '⬅️ - Вернуться назад\n'
-                                                'ALL➕ - Выбрать все\n'
-                                                'ALL➖ - Очистить список\n'
                                                 '📈 - Вывести курс\n'
                                                 '/commands - Все команды\n',
                                                 reply_markup=Bt.ReplyKeyboardRemove())
@@ -52,8 +47,6 @@ async def about(message: types.Message):
                                                 '1 click - Select\n'
                                                 '2 click - Delete\n'
                                                 '⬅️ - turn back\n'
-                                                'ALL➕ - select all\n'
-                                                'ALL➖ - clear the list\n'
                                                 '📈 - display exchange rate\n'
                                                 '/commands - All commands\n',
                                                 reply_markup=Bt.ReplyKeyboardRemove())
@@ -116,54 +109,31 @@ async def setlist(message: types.Message):
 @dp.callback_query_handler(text_contains="cc_")
 async def crypt(call: types.CallbackQuery):
     global k, cc_list, cc_list1
-    if call.data != 'cc_all' and call.data != 'cc_remove':
-        currency = str(call.data[3:])
-        price = cg.get_price(ids=currency, vs_currencies='usd')[currency]['usd']
-        await bot.delete_message(call.from_user.id, call.message.message_id)
-        await bot.delete_message(call.from_user.id, call.message.message_id-1)
-        for i in range(3):
-            for j in range(5):
-                name = Bt.ListMenu["inline_keyboard"][i][j]['text']
-                if call.data == Bt.ListMenu["inline_keyboard"][i][j]['callback_data']:
-                    if name[len(name)-1] == '✅':
-                        k = k - 1
-                        cc_list.remove(name.replace('✅', ''))
-                        cc_list1.remove(price)
-                        Bt.ListMenu["inline_keyboard"][i][j]['text'] = name.replace('✅', '')
-                    else:
-                        k = k + 1
-                        cc_list.append(name)
-                        cc_list1.append(price)
-                        Bt.ListMenu["inline_keyboard"][i][j]['text'] = f"{name}✅"
-                    await bot.send_message(call.from_user.id, '✨', reply_markup=Bt.ReplyKeyboardRemove())
-                    if lang == 'ukr':
-                        await bot.send_message(call.from_user.id, 'Виберіть криптовалюту', reply_markup=Bt.ListMenu)
-                    elif lang == 'ru':
-                        await bot.send_message(call.from_user.id, 'Выберите криптовалюту', reply_markup=Bt.ListMenu)
-                    else:
-                        await bot.send_message(call.from_user.id, 'Choice cryptocurrency', reply_markup=Bt.ListMenu)
-    else:
-        await bot.delete_message(call.from_user.id, call.message.message_id)
-        await bot.delete_message(call.from_user.id, call.message.message_id - 1)
-        await bot.send_message(call.from_user.id, 'wait...')
-        for i in range(3):
-            for j in range(5):
-                sleep(0.5)
-                currency = str(Bt.ListMenu["inline_keyboard"][i][j]['callback_data'][3:])
-                price = cg.get_price(ids=currency, vs_currencies='usd')[currency]['usd']
-                name = Bt.ListMenu["inline_keyboard"][i][j]['text']
-                if call.data == 'cc_all' and name[len(name) - 1] != '✅':
+    currency = str(call.data[3:])
+    price = cg.get_price(ids=currency, vs_currencies='usd')[currency]['usd']
+    await bot.delete_message(call.from_user.id, call.message.message_id)
+    await bot.delete_message(call.from_user.id, call.message.message_id-1)
+    for i in range(3):
+        for j in range(5):
+            name = Bt.ListMenu["inline_keyboard"][i][j]['text']
+            if call.data == Bt.ListMenu["inline_keyboard"][i][j]['callback_data']:
+                if name[len(name)-1] == '✅':
+                    k = k - 1
+                    cc_list.remove(name.replace('✅', ''))
+                    cc_list1.remove(price)
+                    Bt.ListMenu["inline_keyboard"][i][j]['text'] = name.replace('✅', '')
+                else:
                     k = k + 1
                     cc_list.append(name)
                     cc_list1.append(price)
                     Bt.ListMenu["inline_keyboard"][i][j]['text'] = f"{name}✅"
-                elif call.data == 'cc_remove' and name[len(name) - 1] == '✅':
-                    k = k - 1
-                    name = name.replace('✅', '')
-                    cc_list.remove(name)
-                    cc_list1.remove(price)
-                    Bt.ListMenu["inline_keyboard"][i][j]['text'] = name
-        await bot.delete_message(call.from_user.id, call.message.message_id + 1)
+                await bot.send_message(call.from_user.id, '✨', reply_markup=Bt.ReplyKeyboardRemove())
+                if lang == 'ukr':
+                    await bot.send_message(call.from_user.id, 'Виберіть криптовалюту', reply_markup=Bt.ListMenu)
+                elif lang == 'ru':
+                    await bot.send_message(call.from_user.id, 'Выберите криптовалюту', reply_markup=Bt.ListMenu)
+                else:
+                    await bot.send_message(call.from_user.id, 'Choice cryptocurrency', reply_markup=Bt.ListMenu)
         await bot.send_message(call.from_user.id, '✨', reply_markup=Bt.ReplyKeyboardRemove())
         if lang == 'ukr':
             await bot.send_message(call.from_user.id, 'Виберіть криптовалюту', reply_markup=Bt.ListMenu)
