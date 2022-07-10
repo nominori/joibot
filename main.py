@@ -111,8 +111,8 @@ async def crypt(call: types.CallbackQuery):
     global k, cc_list, cc_list1
     currency = str(call.data[3:])
     price = cg.get_price(ids=currency, vs_currencies='usd')[currency]['usd']
-    await bot.delete_message(call.from_user.id, call.message.message_id)
-    await bot.delete_message(call.from_user.id, call.message.message_id-1)
+    for i in range(3):
+            await bot.delete_message(call.from_user.id, call.message.message_id-i)
     for i in range(3):
         for j in range(5):
             name = Bt.ListMenu["inline_keyboard"][i][j]['text']
@@ -127,13 +127,6 @@ async def crypt(call: types.CallbackQuery):
                     cc_list.append(name)
                     cc_list1.append(price)
                     Bt.ListMenu["inline_keyboard"][i][j]['text'] = f"{name}✅"
-                await bot.send_message(call.from_user.id, '✨', reply_markup=Bt.ReplyKeyboardRemove())
-                if lang == 'ukr':
-                    await bot.send_message(call.from_user.id, 'Виберіть криптовалюту', reply_markup=Bt.ListMenu)
-                elif lang == 'ru':
-                    await bot.send_message(call.from_user.id, 'Выберите криптовалюту', reply_markup=Bt.ListMenu)
-                else:
-                    await bot.send_message(call.from_user.id, 'Choice cryptocurrency', reply_markup=Bt.ListMenu)
         await bot.send_message(call.from_user.id, '✨', reply_markup=Bt.ReplyKeyboardRemove())
         if lang == 'ukr':
             await bot.send_message(call.from_user.id, 'Виберіть криптовалюту', reply_markup=Bt.ListMenu)
@@ -147,10 +140,10 @@ async def crypt(call: types.CallbackQuery):
 async def crypt(call: types.CallbackQuery):
     global k, cc_list, cc_list1
     if call.data == 'back':
-        for i in range(2):
+        for i in range(3):
             await bot.delete_message(call.from_user.id, call.message.message_id-i)
     elif call.data == 'back_send' and cc_list != []:
-        for i in range(2):
+        for i in range(3):
             await bot.delete_message(call.from_user.id, call.message.message_id-i)
         short = ''
         for o in range(k):
