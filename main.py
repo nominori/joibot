@@ -59,19 +59,16 @@ async def commands(message: types.Message):
     if lang == 'ukr':
         await bot.send_message(message.chat.id, '<b>Команди</b>\n/about - Як використовувати бота\n'
                                                 '/language - Обрати мову\n'
-                                                '/time - Обрати час\n'
                                                 '/list - Cписок криптовалют\n', parse_mode='HTML',
                                                 reply_markup=Bt.ReplyKeyboardRemove())
     elif lang == 'ru':
         await bot.send_message(message.chat.id, '<b>Команды</b>\n/about - Как использовать бота\n'
                                                 '/language - Выбрать язык\n'
-                                                '/time - Выбрать время\n'
                                                 '/list -Cписок криптовалют\n', parse_mode='HTML',
                                                 reply_markup=Bt.ReplyKeyboardRemove())
     else:
         await bot.send_message(message.chat.id, '<b>Commands</b>\n/about - How to use bot\n'
                                                 '/language - Select Language\n'
-                                                '/time - Choose a time\n'
                                                 '/list - Cryptocurrency list\n', parse_mode='HTML',
                                                 reply_markup=Bt.ReplyKeyboardRemove())
 
