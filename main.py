@@ -3,9 +3,9 @@ from pycoingecko import CoinGeckoAPI
 import logging
 from time import sleep, strftime
 import Buttons as Bt
-from maintoken import TOKEN
 import userdata as data
 
+TOKEN = ''
 logging.basicConfig(level=logging.INFO)
 bot = Bot(token=TOKEN)
 dp = Dispatcher(bot)
